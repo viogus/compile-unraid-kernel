@@ -39,7 +39,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo timedatectl set-timezone "$TZ"
+        sudo cp /usr/share/zoneinfo/"$TZ" /etc/localtime
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
