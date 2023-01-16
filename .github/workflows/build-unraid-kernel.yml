@@ -28,7 +28,8 @@ env:
 
 jobs:
   build:
-    runs-on: aclemons/slackware:latest
+    runs-on: unbuntu-latest
+    container: 'aclemons/slackware:latest'
 
     steps:
     - name: Checkout
