@@ -102,7 +102,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: *
+        name: bz*
         path: ${{ env.FIRMWARE }}
 
     - name: Upload firmware to cowtransfer
