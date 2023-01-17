@@ -59,13 +59,16 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
 
-    - name: Compile the firmware
+    - name: Compile the kernel & modules
       id: compile
       run: |
         cd unraid
         cp unraid_6.11.1_conf_regen-6.2-vendor-reset-gcc .config
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1
+        make bzImage
+        make modules
+        make modules_install
         echo "::set-output name=status::success"
         #grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         #[ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
@@ -79,14 +82,14 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
-        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: openwrt/bin
+        name: Unraid_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: unraid/bin
 
     - name: Organize files
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        cd openwrt/bin/targets/*/*
+        cd unraid/bin/targets/*/*
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
