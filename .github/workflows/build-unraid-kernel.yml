@@ -94,11 +94,13 @@ jobs:
         #cd unraid/bin/
         cp unraid/arch/x86/boot/bzImage ~
         cd ~
+        #mksquashfs /lib/modules/${REPO_BRANCH%-*}-thor-Unraid+/ bzmodules -keep-as-directory -noappend
         mksquashfs /lib/modules/6.2.0-rc3-thor-Unraid+/ bzmodules -keep-as-directory -noappend
         sha256sum bzmodules > bzmodules.sha256
         #sha256sum bzfirmware > bzfirmware.sha256
         sha256sum bzimage > bzimage.sha256
-        #mksquashfs /lib/modules/${REPO_BRANCH%-*}-thor-Unraid+/ bzmodules -keep-as-directory -noappend
+        #tar files
+        tar -cvf bzfiles.tar ~
         
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
@@ -107,7 +109,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: bz*
+        name: bzfiles.tar
         path: ${{ env.FIRMWARE }}
 
     - name: Upload firmware to cowtransfer
