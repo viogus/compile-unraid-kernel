@@ -94,7 +94,8 @@ jobs:
         #cd unraid/bin/
         cp unraid/arch/x86/boot/bzImage ~
         cd ~
-        mksquashfs /lib/modules/${REPO_BRANCH%-*}-thor-Unraid+/ bzmodules -keep-as-directory -noappend
+        mksquashfs /lib/modules/6.2.0-rc3-thor-Unraid+/ bzmodules -keep-as-directory -noappend
+        #mksquashfs /lib/modules/${REPO_BRANCH%-*}-thor-Unraid+/ bzmodules -keep-as-directory -noappend
         
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
