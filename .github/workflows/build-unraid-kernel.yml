@@ -18,7 +18,8 @@ on:
 env:
   REPO_URL: https://github.com/thor2002ro/unraid_kernel
   REPO_BRANCH: 6.2-rc3-20230115
-  CONFIG_FILE: .config
+  CONFIG_FILE: unraid_6.11.1_conf_regen-6.2-vendor-reset-gcc
+  #CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -63,7 +64,7 @@ jobs:
       id: compile
       run: |
         cd unraid
-        cp unraid_6.11.1_conf_regen-6.2-vendor-reset-gcc .config
+        #cp unraid_6.11.1_conf_regen-6.2-vendor-reset-gcc .config
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1
         make bzImage
