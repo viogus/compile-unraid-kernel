@@ -92,7 +92,7 @@ jobs:
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         #cd unraid/bin/
-        cp unraid/arch/x86/boot/bzImage ~
+        cp unraid/arch/x86/boot/bzImage ~/bzimage
         cd ~
         #mksquashfs /lib/modules/${REPO_BRANCH%-*}-thor-Unraid+/ bzmodules -keep-as-directory -noappend
         mksquashfs /lib/modules/6.2.0-rc3-thor-Unraid+/ bzmodules -keep-as-directory -noappend
