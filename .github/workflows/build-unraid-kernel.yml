@@ -66,6 +66,7 @@ jobs:
       run: |
         cd unraid
         echo -e "$(nproc) thread compile"
+        make LOCALVERSION= kernelrelease
         make -j$(nproc) || make -j12
         make modules_prepare
         make bzImage
