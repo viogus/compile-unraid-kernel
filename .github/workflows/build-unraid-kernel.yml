@@ -75,9 +75,7 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
         echo "::set-output name=status::success"
-        #grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
-        #[ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
-        echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        echo "KERNELRELEASE=$(make LOCALVERSION= kernelrelease)" >> $GITHUB_ENV
 
     - name: Check space usage
       if: (!cancelled())
@@ -100,7 +98,7 @@ jobs:
         cp arch/x86/boot/bzImage ~/bzimage
         cd ~
         #mksquashfs /lib/modules/${REPO_BRANCH%-*}-thor-Unraid+/ bzmodules -keep-as-directory -noappend
-        mksquashfs /lib/modules/6.2.0-rc4-thor-Unraid+/ bzmodules -keep-as-directory -noappend
+        mksquashfs /lib/modules/${KERNELRELEASE}/ bzmodules -keep-as-directory -noappend
         sha256sum bzmodules > bzmodules.sha256
         #sha256sum bzfirmware > bzfirmware.sha256
         sha256sum bzimage > bzimage.sha256
