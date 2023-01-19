@@ -6,12 +6,10 @@
 # See /LICENSE for more information.
 #
 # https://github.com/P3TERX/Actions-OpenWrt
-# File name: diy-part1.sh
-# Description: OpenWrt DIY script part 1 (Before Update feeds)
+# File name: diy-part2.sh
+# Description: OpenWrt DIY script part 2 (After Update feeds)
 #
 
-# r8125 kernel module
-# get the source 
-git clone https://github.com/awesometic/realtek-r8125-dkms.git 
+# nct6687 module for b550m mortar wifi
 
-make -C . M=./realteck-r8125-dkms/src modules_install
+patch -p0 < files/nct6687d.patch
