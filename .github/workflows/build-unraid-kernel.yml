@@ -65,7 +65,7 @@ jobs:
         cd unraid
         cp unraid_6.11.1_conf_regen-6.2-vendor-reset-gcc .config
         # patch files
-        patch -p0 < files/*.patch
+        #patch -p0 < files/*.patch
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1
         make bzImage
