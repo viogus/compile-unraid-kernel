@@ -56,6 +56,8 @@ jobs:
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE unraid/.config
         chmod +x $DIY_P2_SH
         cd unraid
+        # patch files
+        #patch -p0 < files/*.patch
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
 
@@ -64,15 +66,16 @@ jobs:
       run: |
         cd unraid
         cp unraid_6.11.1_conf_regen-6.2-vendor-reset-gcc .config
-        # patch files
-        #patch -p0 < files/*.patch
         echo -e "$(nproc) thread compile"
-        make -j$(nproc) || make -j1
+        make -j$(nproc) || make -j12
+        make modules_prepare
         make bzImage
         make modules
-        make modules_install
         #get new bzmodules
         
+        chmod +x $DIY_P1_SH
+        $GITHUB_WORKSPACE/$DIY_P1_SH
+
         echo "::set-output name=status::success"
         #grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         #[ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
@@ -94,7 +97,9 @@ jobs:
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         #cd unraid/bin/
-        cp unraid/arch/x86/boot/bzImage ~/bzimage
+        cd unraid
+        make modules_install
+        cp arch/x86/boot/bzImage ~/bzimage
         cd ~
         #mksquashfs /lib/modules/${REPO_BRANCH%-*}-thor-Unraid+/ bzmodules -keep-as-directory -noappend
         mksquashfs /lib/modules/6.2.0-rc4-thor-Unraid+/ bzmodules -keep-as-directory -noappend
