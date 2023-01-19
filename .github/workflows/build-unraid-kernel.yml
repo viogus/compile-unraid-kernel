@@ -71,6 +71,7 @@ jobs:
         make modules_prepare
         make bzImage
         make modules
+        make modules_install
         #out tree new modules
         chmod +x $GITHUB_WORKSPACE/$DIY_P2_SH
         $GITHUB_WORKSPACE/$DIY_P2_SH
@@ -82,20 +83,11 @@ jobs:
       if: (!cancelled())
       run: df -hT
 
-    - name: Upload bin directory
-      uses: actions/upload-artifact@main
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
-      with:
-        name: Unraid_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: unraid/bin
-
     - name: Organize files
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        #cd unraid/bin/
         cd unraid
-        make modules_install
         cp arch/x86/boot/bzImage ~/bzimage
         cd ~
         #mksquashfs /lib/modules/${REPO_BRANCH%-*}-thor-Unraid+/ bzmodules -keep-as-directory -noappend
