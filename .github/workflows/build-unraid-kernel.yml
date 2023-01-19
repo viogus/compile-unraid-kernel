@@ -21,7 +21,6 @@ env:
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
-  UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
@@ -56,8 +55,6 @@ jobs:
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE unraid/.config
         chmod +x $DIY_P1_SH
         cd unraid
-        # patch files
-        #patch -p0 < files/*.patch
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
 
@@ -72,7 +69,7 @@ jobs:
         make bzImage
         make modules
         make modules_install
-        #out tree new modules
+        #out of tree modules
         chmod +x $GITHUB_WORKSPACE/$DIY_P2_SH
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
@@ -90,7 +87,6 @@ jobs:
         cd unraid
         cp arch/x86/boot/bzImage ~/bzimage
         cd ~
-        #mksquashfs /lib/modules/${REPO_BRANCH%-*}-thor-Unraid+/ bzmodules -keep-as-directory -noappend
         mksquashfs /lib/modules/${KERNELRELEASE}/ bzmodules -keep-as-directory -noappend
         sha256sum bzmodules > bzmodules.sha256
         #sha256sum bzfirmware > bzfirmware.sha256
@@ -114,8 +110,6 @@ jobs:
       run: |
         echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M")"
         touch release.txt
-        [ $UPLOAD_COWTRANSFER = true ] && echo "🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})" >> release.txt
-        [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt
         echo "::set-output name=status::success"
 
     - name: Upload firmware to release
@@ -138,7 +132,7 @@ jobs:
       uses: dev-drprasad/delete-older-releases@v0.1.0
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        keep_latest: 3
+        keep_latest: 10
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
