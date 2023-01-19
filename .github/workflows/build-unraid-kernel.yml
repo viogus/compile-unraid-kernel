@@ -17,7 +17,7 @@ on:
 
 env:
   REPO_URL: https://github.com/thor2002ro/unraid_kernel
-  REPO_BRANCH: 6.2-rc3-20230115
+  REPO_BRANCH: 6.2-rc4-20230119
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
@@ -97,7 +97,7 @@ jobs:
         cp unraid/arch/x86/boot/bzImage ~/bzimage
         cd ~
         #mksquashfs /lib/modules/${REPO_BRANCH%-*}-thor-Unraid+/ bzmodules -keep-as-directory -noappend
-        mksquashfs /lib/modules/6.2.0-rc3-thor-Unraid+/ bzmodules -keep-as-directory -noappend
+        mksquashfs /lib/modules/6.2.0-rc4-thor-Unraid+/ bzmodules -keep-as-directory -noappend
         sha256sum bzmodules > bzmodules.sha256
         #sha256sum bzfirmware > bzfirmware.sha256
         sha256sum bzimage > bzimage.sha256
