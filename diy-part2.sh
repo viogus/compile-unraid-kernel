@@ -12,3 +12,4 @@
 
 # nct6687 module for b550m mortar wifi
 
+patch -p0 < files/*.patch
