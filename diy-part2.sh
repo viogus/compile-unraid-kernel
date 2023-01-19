@@ -14,4 +14,4 @@
 # get the source 
 git clone https://github.com/awesometic/realtek-r8125-dkms.git 
 
-make -C . M=./realteck-r8125-dkms/src modules_install
+make -C . M=./realtek-r8125-dkms/src modules_install
