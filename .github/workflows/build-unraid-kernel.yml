@@ -65,7 +65,6 @@ jobs:
       id: compile
       run: |
         cd unraid
-        cp unraid_6.11.1_conf_regen-6.2-vendor-reset-gcc .config
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j12
         make modules_prepare
