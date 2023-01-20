@@ -63,6 +63,7 @@ jobs:
       run: |
         cd unraid
         echo -e "$(nproc) thread compile"
+        make oldconfig && make prepare
         make LOCALVERSION= kernelrelease
         make -j$(nproc) || make -j12
         make modules_prepare
