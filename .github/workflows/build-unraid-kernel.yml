@@ -28,7 +28,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: 'ghcr.io/aclemons/slackware:latest-full@sha256:c113e4e2b301017d70a72d014af92fe74cad41ca73a02478701b9fd0f66500d9'
+    #container: 'ghcr.io/aclemons/slackware:latest-full@sha256:c113e4e2b301017d70a72d014af92fe74cad41ca73a02478701b9fd0f66500d9'
 
     steps:
     - name: Checkout
