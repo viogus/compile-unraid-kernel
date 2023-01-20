@@ -15,5 +15,6 @@
 git clone https://github.com/awesometic/realtek-r8125-dkms.git 
 make -C . M=./realtek-r8125-dkms/src modules
 # xz
+KERNELRELEASE=$(cat ./include/config/kernel.release)
 xz -z ./realtek-r8125-dkms/src/r8125.ko
 cp ./realtek-r8125-dkms/src/r8125.ko.xz /lib/modules/${KERNELRELEASE}+/kernel/drivers/net/ethernet/realtek/
