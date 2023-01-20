@@ -17,4 +17,4 @@ make -C . M=./realtek-r8125-dkms/src modules
 # xz
 KERNELRELEASE=$(cat ./include/config/kernel.release)
 xz -z ./realtek-r8125-dkms/src/r8125.ko
-cp ./realtek-r8125-dkms/src/r8125.ko.xz /lib/modules/${KERNELRELEASE}+/kernel/drivers/net/ethernet/realtek/
+cp ./realtek-r8125-dkms/src/r8125.ko.xz /lib/modules/${KERNELRELEASE}/kernel/drivers/net/ethernet/realtek/
