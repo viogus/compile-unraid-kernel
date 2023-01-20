@@ -95,7 +95,7 @@ jobs:
         #sha256sum bzfirmware > bzfirmware.sha256
         sha256sum bzimage > bzimage.sha256
         #tar files
-        tar -cvf bzfiles.tar ~
+        tar -cvf bzfiles.tar .
         
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
