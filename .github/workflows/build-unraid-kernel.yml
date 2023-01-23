@@ -46,7 +46,12 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH unraid
+        #git clone $REPO_URL -b $REPO_BRANCH unraid
+        git clone $REPO_URL unraid
+        cd unraid
+        git fetch --tags
+        latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+        git checkout $latestTag
         ln -sf /workdir/unraid $GITHUB_WORKSPACE/unraid
 
     - name: Load custom configuration
