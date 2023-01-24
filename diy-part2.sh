@@ -6,8 +6,8 @@
 # See /LICENSE for more information.
 #
 # https://github.com/P3TERX/Actions-OpenWrt
-# File name: diy-part1.sh
-# Description: OpenWrt DIY script part 1 (Before Update feeds)
+# File name: diy-part2.sh
+# Description: OpenWrt DIY script part 2 (Before Update feeds)
 #
 #
 KERNELRELEASE=$(cat ./include/config/kernel.release)
@@ -22,6 +22,7 @@ cp ./realtek-r8125-dkms/src/r8125.ko.xz /lib/modules/${KERNELRELEASE}/kernel/dri
 
 # nct6687d kernel module
 # Create necessary directories and clone repository
+# nct6687 module for b550m mortar wifi
 
 git clone https://github.com/Fred78290/nct6687d.git
 # Patch Makefile and install the Kernel module to a temporary directory
@@ -37,4 +38,4 @@ clean:
 make -C . M=./nct6687d modules
 # xz
 xz -z ./nct6687d/nct6687.ko
-cp ./nct6687d/nct6687.ko.xz /lib/modules/${KERNELRELEASE}/drivers/hwmon/
+cp ./nct6687d/nct6687.ko.xz /lib/modules/${KERNELRELEASE}/kernel/drivers/hwmon/

@@ -6,10 +6,5 @@
 # See /LICENSE for more information.
 #
 # https://github.com/P3TERX/Actions-OpenWrt
-# File name: diy-part2.sh
-# Description: OpenWrt DIY script part 2 (After Update feeds)
-#
-
-# nct6687 module for b550m mortar wifi
-
-patch -p0 < files/nct6687d.patch
+# File name: diy-part1.sh
+# mainly for patches
