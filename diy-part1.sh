@@ -8,4 +8,5 @@
 # https://github.com/P3TERX/Actions-OpenWrt
 # File name: diy-part1.sh
 # mainly for patches
-
+#
+git checkout 20221021
