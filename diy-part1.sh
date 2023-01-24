@@ -9,5 +9,3 @@
 # File name: diy-part1.sh
 # mainly for patches
 
-wget https://git.kernel.org/torvalds/p/v6.2-rc6/v6.2-rc5
-patch -p1 < v6.2-rc5
