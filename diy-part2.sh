@@ -22,3 +22,19 @@ cp ./realtek-r8125-dkms/src/r8125.ko.xz /lib/modules/${KERNELRELEASE}/kernel/dri
 
 # nct6687d kernel module
 # Create necessary directories and clone repository
+
+git clone https://github.com/Fred78290/nct6687d.git
+# Patch Makefile and install the Kernel module to a temporary directory
+echo -e 'obj-m += nct6687.o
+all:
+\tmake -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+install: all
+\tmake -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules_install
+clean:
+\tmake -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+' > nct6687d/Makefile
+
+make -C . M=./nct6687d modules
+# xz
+xz -z ./nct6687d/nct6687.ko
+cp ./nct6687d/nct6687.ko.xz /lib/modules/${KERNELRELEASE}/drivers/hwmon/
