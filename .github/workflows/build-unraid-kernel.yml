@@ -93,7 +93,6 @@ jobs:
         cd unraid
         KERNELRELEASE=$(cat ./include/config/kernel.release)
         cp arch/x86/boot/bzImage ~/bzimage
-        cp ./realtek-r8125-dkms/src/r8125.ko.xz ~ 
         cd ~
         mksquashfs /lib/modules/${KERNELRELEASE}/ bzmodules -keep-as-directory -noappend
         sha256sum bzmodules > bzmodules.sha256
