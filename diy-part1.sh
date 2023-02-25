@@ -22,5 +22,5 @@ CONFIG_IWLWIFI_OPMODE_MODULAR=y
 CONFIG_IWLDVM=m
 CONFIG_IWLMVM=m" >> .config
 
-wget https://cdn.kernel.org/pub/linux/kernel/v6.x/patch-6.1.13.xz
+wget https://cdn.kernel.org/pub/linux/kernel/v6.x/patch-6.1.14.xz
 xzcat patch-6.1.*.xz | patch -p1
