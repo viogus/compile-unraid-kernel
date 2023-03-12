@@ -13,5 +13,5 @@ git checkout 20230220
 
 cp unraid_6.11.1_conf_regen-6.2-vendor-reset-gcc .config
 sed -i '/WLAN_VEN/d' .config
-wget https://cdn.kernel.org/pub/linux/kernel/v6.x/patch-6.2.2.xz
+wget https://cdn.kernel.org/pub/linux/kernel/v6.x/patch-6.2.5.xz
 xzcat patch-6.2.*.xz | patch -p1
