@@ -9,9 +9,9 @@
 # File name: diy-part1.sh
 # mainly for patches
 #
-git checkout 20230808
+#git checkout 20230808
 
-cp unraid_6.12.3_conf_regen-6.5-vendor-reset-gcc .config
+cp unraid_6.12.4_conf_regen-6.5-vendor-reset-gcc .config
 sed -i '/WLAN_VEN/d' .config
 #wget https://cdn.kernel.org/pub/linux/kernel/v6.x/patch-6.2.5.xz
 #xzcat patch-6.2.*.xz | patch -p1
