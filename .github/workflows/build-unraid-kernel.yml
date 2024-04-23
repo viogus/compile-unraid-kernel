@@ -95,19 +95,14 @@ jobs:
         /usr/local/share/powershell /usr/local/share/chromium /usr/local/lib/node_modules
         sudo timedatectl set-timezone "$TZ"
         sudo chown $USER:$GROUPS $GITHUB_WORKSPACE
+        sudo mkdir -p /home/runner/work/compile-unraid-kernel/compile-unraid-kernel/workdir
+        sudo chown $USER:$GROUPS /home/runner/work/compile-unraid-kernel/compile-unraid-kernel/workdir
 
     - name: Checkout
       uses: actions/checkout@main
 
-    - name: Initialization environment
-      env:
-        DEBIAN_FRONTEND: noninteractive
-      run: |
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
-
     - name: Clone source code
-      working-directory: /workdir
+      working-directory: /home/runner/work/compile-unraid-kernel/compile-unraid-kernel/workdir
       run: |
         df -hT $PWD
         #git clone $REPO_URL -b $REPO_BRANCH unraid
@@ -116,7 +111,7 @@ jobs:
         git fetch --tags
         latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
         git checkout $latestTag
-        ln -sf /workdir/unraid $GITHUB_WORKSPACE/unraid
+        ln -sf /home/runner/work/compile-unraid-kernel/compile-unraid-kernel/workdir/unraid $GITHUB_WORKSPACE/unraid
 
     - name: Load custom configuration
       run: |
