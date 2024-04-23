@@ -131,10 +131,10 @@ jobs:
         make oldconfig && make prepare
         make LOCALVERSION= kernelrelease
         make -j$(nproc) || make -j12
-        make modules_prepare
-        make bzImage
-        make modules
-        make modules_install
+        sudo make modules_prepare
+        sudo make bzImage
+        sudo make modules
+        sudo make modules_install
         #out of tree modules
         chmod +x $GITHUB_WORKSPACE/$DIY_P2_SH
         $GITHUB_WORKSPACE/$DIY_P2_SH
