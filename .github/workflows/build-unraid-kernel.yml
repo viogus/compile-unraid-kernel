@@ -76,8 +76,11 @@ jobs:
         echo "=============================================================================="
         df -hT
         echo "=============================================================================="
+        
+    - name: Checkout
+      uses: actions/checkout@main
     
-    - name: Initialization environment1
+    - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -98,13 +101,11 @@ jobs:
         sudo mkdir -p /home/runner/work/compile-unraid-kernel/compile-unraid-kernel/workdir
         sudo chown $USER:$GROUPS /home/runner/work/compile-unraid-kernel/compile-unraid-kernel/workdir
 
-    - name: Checkout
-      uses: actions/checkout@main
 
     - name: Clone source code
       working-directory: /home/runner/work/compile-unraid-kernel/compile-unraid-kernel/workdir
       run: |
-        df -hT $PWD
+        df -hT 
         #git clone $REPO_URL -b $REPO_BRANCH unraid
         git clone $REPO_URL unraid
         cd unraid
